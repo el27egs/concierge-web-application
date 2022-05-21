@@ -1,4 +1,4 @@
-package com.ngineapps.concierge.web.controllers.services;
+package com.ngineapps.concierge.web.services;
 
 import com.ngineapps.concierge.web.dto.AccountResponseDTO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

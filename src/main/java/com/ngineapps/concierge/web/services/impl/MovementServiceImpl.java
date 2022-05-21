@@ -13,41 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ngineapps.concierge.web.controllers.services.impl;
+package com.ngineapps.concierge.web.services.impl;
 
-import com.ngineapps.concierge.web.controllers.services.MovementService;
 import com.ngineapps.concierge.web.dto.AccountMovementsResponseDTO;
+import com.ngineapps.concierge.web.services.MovementService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class MovementServiceImpl implements MovementService {
 
     private final RestTemplate restTemplate;
 
+    private final WebClient webClient;
+
     private final OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
 
-    public MovementServiceImpl(OAuth2AuthorizedClientService oAuth2AuthorizedClientService, RestTemplate restTemplate) {
+    public MovementServiceImpl(OAuth2AuthorizedClientService oAuth2AuthorizedClientService, RestTemplate restTemplate,
+                               @Qualifier("internalWebClient") WebClient webClient) {
         this.oAuth2AuthorizedClientService = oAuth2AuthorizedClientService;
         this.restTemplate = restTemplate;
+        this.webClient = webClient;
     }
 
     @Override
     public AccountMovementsResponseDTO getMovements(final String accountId, @AuthenticationPrincipal OidcUser principal) {
 
+        String url = "http://localhost:8008/api/v1/accounts/" + accountId + "/movements";
+
+        AccountMovementsResponseDTO responseDTO = webClient.get().uri(url)
+                .retrieve().bodyToMono(new ParameterizedTypeReference<AccountMovementsResponseDTO>() {})
+                .block();
+
+        return responseDTO;
+
+        /*
+         * 02 Deleting this in favor of web client use
+         */
+        /*
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
 
@@ -75,6 +84,12 @@ public class MovementServiceImpl implements MovementService {
                         new ParameterizedTypeReference<AccountMovementsResponseDTO>() {});
 
         return responseEntity.getBody();
+
+         */
+
+        /*
+         * 01 Deleting this in favor of connecting to service
+         */
         /*
         AccountMovementsResponseDTO.builder()
                 .movements(Arrays.asList(

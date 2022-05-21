@@ -13,23 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ngineapps.concierge.web.controllers.services.impl;
+package com.ngineapps.concierge.web.services;
 
-import com.ngineapps.concierge.web.controllers.services.AccountService;
-import com.ngineapps.concierge.web.dto.AccountResponseDTO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import com.ngineapps.concierge.web.dto.AccountMovementsResponseDTO;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.stereotype.Service;
 
-import java.text.StringCharacterIterator;
+public interface MovementService {
 
-@Service
-@Slf4j
-public class AccountServiceImpl implements AccountService {
-
-    @Override
-    public AccountResponseDTO getAccount(String accountId, OidcUser principal){
-        return null;
-    }
+	AccountMovementsResponseDTO getMovements(String accountId, OidcUser principal);
 }
