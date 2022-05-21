@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<h1>Account details</h1>
+
+<div th:if="${data.getMovements().isEmpty()}">
+    <div>No movements details</div>
+</div>
+
+<h1>Account:</h1>
+Account Id: <span><th:block th:text="${data.account.accountId}"></th:block></span> <br />
+Account Name: <span><th:block th:text="${data.account.accountName}"></th:block></span><br />
+Current Balance: <span><th:block th:text="${data.account.currentBalance}"></th:block></span><br/>
+<br />
+<h1>Movements:</h1>
+
+<div th:each="movement : ${data.movements}">
+    <p>MovementId: <span th:text="${movement.movementId}"></span></p>
+    <p>Amount: <span th:text="${movement.amount}"></span></p>
+</div>
+
+
+</body>
+</html>

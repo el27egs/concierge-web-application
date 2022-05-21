@@ -1,0 +1,22 @@
+server:
+  port: 8087
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          concierge-web: # value created to use here
+            client-id: concierge-web-grants # new client in Authorization Server under concierge real
+            client-secret: 9a0c6668-68df-49ce-b8f8-af4011214c6c # secret for above client-id
+            scope: openid, profile, roles, concierge-user # profiles mapped to client-id
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8087/login/oauth2/code/concierge-web # /login/oauth2/code must be fixed
+        provider:
+          concierge-web: # value created to use here
+            # values below obtenied from: http://localhost:8090/auth/realms/concierge/.well-known/openid-configuration
+            authorization-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/auth
+            token-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/token
+            jwk-set-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/certs
+            user-info-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
