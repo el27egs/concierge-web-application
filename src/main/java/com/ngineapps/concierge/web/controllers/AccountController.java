@@ -23,6 +23,7 @@ public class AccountController {
 
         AccountMovementsResponseDTO responseDTO = movementService.getMovements(accountId, principal);
 
+        model.addAttribute("fullName", principal.getFullName());
         model.addAttribute("data", responseDTO);
 
         return "account-details";

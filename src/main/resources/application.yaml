@@ -20,3 +20,40 @@ spring:
             jwk-set-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/certs
             user-info-uri: http://localhost:8090/auth/realms/concierge/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          facebook: # default custom registration id for Facebook
+#            client-id: 1216152939193000
+#            client-secret: c09b34dacf572ba10bf70b9a00086ec7
+
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google: # default custom registration id for Google
+#            client-id: 679497420398-ku8vepjum71k71kqvn4067o9do00q43g.apps.googleusercontent.com
+#            client-secret: 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
+#            authorization-grant-type: authorization_code
+
+
+
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          okta: # default custom registration id for Okta
+#            client-id: 0oa54wqnuzfO5E1GG5d7
+#            client-secret: XkH33olvVZOJkq6P74AZfUR6JK_tjNwzx9GccKSb
+#            scope: openid, profile
+#        provider:
+#          okta:
+#            #issuer-uri: https://dev-54381958-admin.okta.com/oauth2/default # This is the Admin uri DO NOT USE THIS ONE
+#            #issuer-uri: https://okta-devok12.okta.com/oauth2/default # This is for logging in DO NOT USE THIS ONE
+#            issuer-uri: https://dev-54381958.okta.com/oauth2/default
